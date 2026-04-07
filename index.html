@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="https://salvosoccer.org/wp-content/uploads/2025/04/SALVO_BADGE.png" sizes="32x32">
+<title>Anecdotal &times; Salvo SC &mdash; The Approach</title>
+<style>
+:root {
+  --cream:      #FFFCE8;
+  --ink:        #000000;
+  --ink-soft:   #333333;
+  --sage:       #CC5033;
+  --sage-light: #E8A090;
+  --sage-wash:  #F9EDE9;
+  --warm-white: #FFFFFF;
+  --rule:       rgba(0,0,0,0.12);
+  --serif:      Georgia, 'Times New Roman', serif;
+  --sans:       -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:300; background:var(--warm-white); color:var(--ink); overflow-x:hidden; }
+
+/* SLIDE SHELL */
+.slide {
+  position:relative; width:100%; min-height:100vh;
+  padding:clamp(48px,7vw,96px) clamp(40px,8vw,120px);
+  margin-bottom:2px; background:var(--warm-white);
+  overflow:hidden; display:flex; flex-direction:column; justify-content:center;
+}
+.slide::before {
+  content:''; position:absolute; inset:0;
+  background-image:radial-gradient(circle,rgba(0,0,0,0.055) 1px,transparent 1px);
+  background-size:24px 24px; pointer-events:none;
+}
+.slide--dark { background:var(--ink); color:var(--cream); }
+.slide--dark::before { background-image:radial-gradient(circle,rgba(255,255,255,0.06) 1px,transparent 1px); background-size:24px 24px; }
+.slide--sage { background:var(--sage-wash); }
+
+/* TYPOGRAPHY */
+.eyebrow {
+  font-family:var(--sans); font-size:10px; font-weight:500;
+  letter-spacing:0.18em; text-transform:uppercase; opacity:0.5; margin-bottom:20px;
+}
+.slide--dark .eyebrow { opacity:0.4; }
+.display {
+  font-family:var(--serif); font-size:clamp(38px,5.5vw,64px);
+  font-weight:400; line-height:1.08; letter-spacing:-0.02em;
+}
+.display em { font-style:italic; color:var(--sage); }
+.slide--dark .display em { color:var(--sage-light); }
+.display-sm {
+  font-family:var(--serif); font-size:clamp(26px,3.5vw,40px);
+  font-weight:400; line-height:1.15; letter-spacing:-0.02em;
+}
+.display-sm em { font-style:italic; color:var(--sage); }
+.slide--dark .display-sm em { color:var(--sage-light); }
+.body { font-size:15px; line-height:1.7; font-weight:300; max-width:560px; opacity:0.75; margin-top:20px; }
+.body-wide { max-width:720px; }
+
+/* ACCENT */
+.rule { width:48px; height:2px; background:var(--sage); margin:28px 0; }
+.slide--dark .rule { background:var(--sage-light); }
+.slide-num { position:absolute; top:28px; right:36px; font-size:11px; letter-spacing:0.12em; opacity:0.3; font-family:var(--serif); }
+.slide-footer {
+  position:absolute; bottom:28px;
+  left:clamp(40px,8vw,120px); right:clamp(40px,8vw,120px);
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:10px; letter-spacing:0.1em; opacity:0.3;
+}
+
+/* COVER */
+.cover-hero {
+  position:relative; min-height:100vh;
+  background:url('https://images.unsplash.com/photo-1589487391730-58f20eb2c308?w=1800&q=80') center 30%/cover no-repeat;
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:clamp(48px,7vw,96px) clamp(40px,6vw,80px); overflow:hidden;
+}
+.cover-hero::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0.65) 40%,rgba(204,80,51,0.22) 100%);
+  z-index:0;
+}
+.cover-hero > * { position:relative; z-index:1; }
+.cover-wordmark { display:flex; align-items:center; gap:10px; }
+.cover-wordmark-sep { font-family:var(--serif); font-style:italic; color:rgba(255,255,255,0.4); font-size:16px; }
+.cover-wordmark-client { font-family:var(--sans); font-size:13px; font-weight:400; letter-spacing:0.06em; color:rgba(255,255,255,0.55); }
+.cover-headline { font-family:var(--serif); font-size:clamp(48px,7vw,82px); font-weight:400; line-height:1.03; letter-spacing:-0.02em; color:var(--cream); }
+.cover-headline em { font-style:italic; color:var(--sage-light); }
+.cover-sub { font-size:16px; font-weight:300; color:rgba(255,255,255,0.6); margin-top:20px; max-width:560px; line-height:1.65; }
+.cover-bottom-label { font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:6px; }
+.cover-bottom-title { font-family:var(--serif); font-size:22px; color:var(--cream); line-height:1; margin-bottom:4px; }
+.cover-bottom-date { font-size:12px; color:rgba(255,255,255,0.4); }
+.cover-pills { display:flex; gap:8px; flex-wrap:wrap; margin-top:28px; }
+.cover-pill { font-size:10px; letter-spacing:0.12em; text-transform:uppercase; padding:6px 14px; border:1px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.5); }
+
+/* LAYOUT */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:56px; margin-top:44px; align-items:start; }
+.card-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:44px; }
+.card { background:var(--cream); padding:32px 28px; position:relative; overflow:hidden; }
+.slide--sage .card { background:#fff; }
+.card-num { font-family:var(--serif); font-size:44px; color:var(--sage); opacity:0.5; line-height:1; margin-bottom:12px; }
+.card-title { font-family:var(--serif); font-size:18px; margin-bottom:10px; line-height:1.2; }
+.card-body { font-size:13px; line-height:1.65; font-weight:300; opacity:0.7; }
+.card--accent-top::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--sage); }
+
+/* DELIVERABLE LIST */
+.deliverable-list { list-style:none; display:flex; flex-direction:column; gap:0; }
+.deliverable-list li { padding:13px 0; border-bottom:1px solid var(--rule); display:flex; flex-direction:column; gap:3px; }
+.deliverable-list li:last-child { border-bottom:none; }
+.d-title { font-size:13.5px; font-weight:500; color:var(--ink); display:flex; align-items:center; gap:10px; line-height:1.3; }
+.d-title::before { content:''; display:inline-block; width:14px; height:2px; background:var(--sage); flex-shrink:0; }
+.d-body { font-size:12.5px; font-weight:300; color:var(--ink-soft); line-height:1.6; padding-left:24px; opacity:0.7; }
+
+/* PROBLEM LIST */
+.problem-list { list-style:none; margin-top:32px; display:flex; flex-direction:column; gap:14px; }
+.problem-list li { display:flex; align-items:flex-start; gap:16px; font-size:15px; line-height:1.55; font-weight:300; padding-bottom:14px; border-bottom:1px solid var(--rule); }
+.problem-list li:last-child { border-bottom:none; padding-bottom:0; }
+.problem-list li::before { content:'\2014'; color:var(--sage); font-family:var(--serif); flex-shrink:0; margin-top:1px; }
+
+/* METRICS */
+.metric-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-top:44px; }
+.metric { background:rgba(255,255,255,0.05); padding:28px 24px; }
+.metric-value { font-family:var(--serif); font-size:40px; line-height:1; margin-bottom:6px; color:var(--sage-light); }
+.metric-label { font-size:11px; opacity:0.55; line-height:1.4; font-weight:300; }
+
+/* QUOTE */
+.quote-block { border-left:3px solid var(--sage-light); padding-left:24px; margin-top:36px; }
+.quote-text { font-family:var(--serif); font-size:20px; font-style:italic; line-height:1.5; color:rgba(255,252,232,0.8); }
+.quote-attr { font-size:11px; letter-spacing:0.12em; text-transform:uppercase; opacity:0.4; margin-top:12px; }
+
+/* FEATURE BLOCK */
+.feature-block { background:var(--ink); color:var(--cream); padding:36px 40px; margin-top:40px; position:relative; overflow:hidden; }
+.feature-block::before { content:''; position:absolute; top:-40px; right:-40px; width:200px; height:200px; border-radius:50%; background:var(--sage); opacity:0.12; }
+.feature-label { font-size:9px; letter-spacing:0.18em; text-transform:uppercase; opacity:0.4; margin-bottom:12px; }
+.feature-title { font-family:var(--serif); font-size:22px; line-height:1.2; margin-bottom:12px; }
+.feature-title em { font-style:italic; color:var(--sage-light); }
+.feature-body { font-size:13px; line-height:1.65; opacity:0.65; font-weight:300; }
+
+/* PERSONA CARDS */
+.persona-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin-top:36px; }
+.persona-card { background:var(--cream); padding:28px 24px; display:flex; flex-direction:column; gap:8px; }
+.persona-card:nth-child(odd) { background:var(--cream); }
+.persona-card:nth-child(even) { background:var(--sage-wash); }
+.persona-card:nth-child(1) { background:var(--ink); color:var(--cream); }
+.persona-card:nth-child(5) { background:var(--ink); color:var(--cream); }
+.p-num { font-size:10px; letter-spacing:0.14em; text-transform:uppercase; opacity:0.4; }
+.persona-card:nth-child(1) .p-num,
+.persona-card:nth-child(5) .p-num { color:var(--sage-light); opacity:0.6; }
+.p-name { font-family:var(--serif); font-size:18px; line-height:1.2; margin-bottom:4px; }
+.persona-card:nth-child(1) .p-name,
+.persona-card:nth-child(5) .p-name { color:var(--cream); }
+.p-desc { font-size:12.5px; line-height:1.6; font-weight:300; opacity:0.7; flex:1; }
+.persona-card:nth-child(1) .p-desc,
+.persona-card:nth-child(5) .p-desc { color:rgba(255,252,232,0.65); opacity:1; }
+.p-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
+.p-tag { font-size:9px; letter-spacing:0.08em; text-transform:uppercase; padding:3px 7px; background:rgba(204,80,51,0.1); color:var(--sage); }
+.persona-card:nth-child(1) .p-tag,
+.persona-card:nth-child(5) .p-tag { background:rgba(255,255,255,0.1); color:var(--sage-light); }
+
+/* IMPORTANCE CALLOUT */
+.importance-callout {
+  background:var(--ink); padding:28px 32px; margin-bottom:24px;
+  display:grid; grid-template-columns:auto 1fr; gap:24px; align-items:center;
+}
+.importance-mark { font-family:var(--serif); font-size:52px; line-height:1; color:var(--sage-light); }
+.importance-text { font-size:14px; line-height:1.7; color:rgba(255,252,232,0.75); }
+.importance-text strong { color:var(--sage-light); font-weight:500; }
+
+/* PERSONA NOTE */
+.persona-note { margin-top:16px; padding:14px 20px; border-left:3px solid var(--sage); background:var(--cream); }
+.persona-note p { font-size:13px; font-style:italic; opacity:0.6; margin:0; line-height:1.65; }
+
+/* CONTENT CATEGORY CARDS */
+.cat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:44px; }
+.cat-card { padding:28px 24px; display:flex; flex-direction:column; }
+.cat-card:nth-child(1) { background:var(--ink); color:var(--cream); }
+.cat-card:nth-child(2) { background:var(--sage); color:var(--cream); }
+.cat-card:nth-child(3) { background:var(--warm-white); }
+.cat-card:nth-child(4) { background:var(--sage-wash); }
+.cat-card:nth-child(5) { background:var(--ink); color:var(--cream); }
+.cat-card:nth-child(6) { background:var(--sage); color:var(--cream); }
+.cc-num { font-size:9px; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:8px; }
+.cat-card:nth-child(1) .cc-num,
+.cat-card:nth-child(2) .cc-num,
+.cat-card:nth-child(5) .cc-num,
+.cat-card:nth-child(6) .cc-num { color:var(--sage-light); }
+.cat-card:nth-child(3) .cc-num,
+.cat-card:nth-child(4) .cc-num { color:var(--sage); opacity:0.7; }
+.cc-title { font-family:var(--serif); font-size:20px; line-height:1.2; margin-bottom:8px; }
+.cc-desc { font-size:12.5px; line-height:1.6; margin-bottom:14px; font-weight:300; }
+.cat-card:nth-child(1) .cc-desc,
+.cat-card:nth-child(2) .cc-desc,
+.cat-card:nth-child(5) .cc-desc,
+.cat-card:nth-child(6) .cc-desc { opacity:0.6; }
+.cat-card:nth-child(3) .cc-desc,
+.cat-card:nth-child(4) .cc-desc { opacity:0.65; }
+.cc-ideas { list-style:none; display:flex; flex-direction:column; gap:4px; flex:1; }
+.cc-ideas li { font-size:11.5px; line-height:1.5; padding-left:14px; position:relative; }
+.cc-ideas li::before { content:'\2013'; position:absolute; left:0; }
+.cat-card:nth-child(1) .cc-ideas li,
+.cat-card:nth-child(2) .cc-ideas li,
+.cat-card:nth-child(5) .cc-ideas li,
+.cat-card:nth-child(6) .cc-ideas li { opacity:0.5; }
+.cat-card:nth-child(1) .cc-ideas li::before,
+.cat-card:nth-child(2) .cc-ideas li::before,
+.cat-card:nth-child(5) .cc-ideas li::before,
+.cat-card:nth-child(6) .cc-ideas li::before { color:var(--sage-light); }
+.cat-card:nth-child(3) .cc-ideas li,
+.cat-card:nth-child(4) .cc-ideas li { opacity:0.6; }
+.cat-card:nth-child(3) .cc-ideas li::before,
+.cat-card:nth-child(4) .cc-ideas li::before { color:var(--sage); }
+
+/* CAPTURE CARDS */
+.capture-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:44px; }
+.cap-card { padding:28px 24px; display:flex; flex-direction:column; gap:10px; }
+.cap-card:nth-child(1) { background:var(--ink); color:var(--cream); }
+.cap-card:nth-child(2) { background:var(--sage); color:var(--cream); }
+.cap-card:nth-child(3) { background:var(--cream); }
+.cap-card:nth-child(4) { background:var(--sage-wash); }
+.cap-card:nth-child(5) { background:var(--ink); color:var(--cream); }
+.cap-card:nth-child(6) { background:var(--sage); color:var(--cream); }
+.cap-icon { font-size:22px; }
+.cap-title { font-family:var(--serif); font-size:18px; line-height:1.2; }
+.cap-body { font-size:12.5px; line-height:1.65; font-weight:300; flex:1; }
+.cap-card:nth-child(1) .cap-body,
+.cap-card:nth-child(2) .cap-body,
+.cap-card:nth-child(5) .cap-body,
+.cap-card:nth-child(6) .cap-body { opacity:0.65; }
+.cap-card:nth-child(3) .cap-body,
+.cap-card:nth-child(4) .cap-body { opacity:0.7; }
+
+/* OUTCOMES */
+.outcomes-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:44px; }
+.outcome-item { padding:24px 28px; background:rgba(255,255,255,0.03); display:flex; gap:16px; align-items:flex-start; }
+.outcome-item:nth-child(even) { background:rgba(255,255,255,0.06); }
+.outcome-item.expand { background:var(--sage); grid-column:1 / -1; }
+.oi-arrow { font-family:var(--serif); font-size:28px; color:var(--sage-light); line-height:1; flex-shrink:0; padding-top:2px; }
+.outcome-item.expand .oi-arrow { font-size:32px; color:var(--cream); opacity:0.6; }
+.oi-head { font-family:var(--serif); font-size:19px; color:var(--cream); margin-bottom:4px; line-height:1.2; }
+.oi-body { font-size:12.5px; line-height:1.6; color:rgba(255,252,232,0.5); font-weight:300; }
+.outcome-item.expand .oi-body { color:rgba(255,255,255,0.8); font-size:13.5px; }
+
+/* ANIMATION */
+[data-reveal] { opacity:1; transform:none; }
+.js-loaded [data-reveal] {
+  opacity:0; transform:translateY(28px);
+  transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.js-loaded [data-reveal].is-visible { opacity:1; transform:translateY(0); }
+.js-loaded [data-reveal][data-delay="1"] { transition-delay:0.12s; }
+.js-loaded [data-reveal][data-delay="2"] { transition-delay:0.24s; }
+.js-loaded [data-reveal][data-delay="3"] { transition-delay:0.36s; }
+.js-loaded [data-reveal][data-delay="4"] { transition-delay:0.48s; }
+.js-loaded [data-reveal][data-delay="5"] { transition-delay:0.60s; }
+.js-loaded [data-reveal][data-delay="6"] { transition-delay:0.72s; }
+.js-loaded [data-reveal][data-delay="7"] { transition-delay:0.84s; }
+.js-loaded .rule[data-reveal] { transform:none; width:0; transition:opacity 0.9s, width 0.5s cubic-bezier(0.16,1,0.3,1); }
+.js-loaded .rule[data-reveal].is-visible { width:48px; }
+
+/* MOBILE */
+@media (max-width:700px) {
+  .slide { padding:52px 28px; min-height:auto; }
+  .cover-hero { min-height:100vh; }
+  .card-grid, .cat-grid, .capture-grid, .outcomes-grid, .metric-strip, .two-col { grid-template-columns:1fr; }
+  .persona-grid { grid-template-columns:1fr; }
+  .importance-callout { grid-template-columns:1fr; text-align:center; }
+  .display { font-size:34px; }
+  .display-sm { font-size:26px; }
+  .outcome-item.expand { grid-column:1; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .js-loaded [data-reveal] { opacity:1 !important; transform:none !important; transition:none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- SLIDE 01 — COVER -->
+<div class="cover-hero">
+  <div class="cover-wordmark" data-reveal>
+    <svg height="18" viewBox="0 0 142 28" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#ca)"><path fill="rgba(255,252,232,0.55)" d="m28.834 19.95-7.146 7.117v-13.5l7.146-6.15V19.95ZM15.797 6.901v12.983h5.107V13.21l7.33-6.308H15.797Zm-8.972 6.665v13.5l7.146-7.116V7.416l-7.146 6.15ZM.935 6.901v12.983H6.04V13.21l7.33-6.308H.934Zm32.955 6.506c0-4.002 2.983-6.753 6.51-6.753 1.454 0 2.884.492 3.772 1.425l.024-1.179h3.452v13.014h-3.452l-.024-1.179c-.888.933-2.318 1.424-3.773 1.424-3.526 0-6.509-2.75-6.509-6.752Zm7.027 3.216c1.775 0 3.082-1.252 3.082-3.216 0-1.964-1.307-3.217-3.082-3.217-1.8 0-3.131 1.252-3.131 3.217 0 1.964 1.331 3.216 3.131 3.216ZM54.946 6.58c3.55 0 5.72 2.162 5.72 5.648v7.686H56.77v-7.538c0-1.4-.666-2.186-1.824-2.186-1.16 0-1.825.786-1.825 2.186v7.538h-3.896v-7.686c0-3.486 2.17-5.647 5.72-5.647Zm6.73 6.876c0-4.1 2.959-6.875 6.756-6.875 3.575 0 6.854 2.43 6.312 7.882H65.35c.37 1.547 1.627 2.48 3.353 2.48 1.38 0 2.564-.59 3.526-1.793l2.515 2.087c-1.455 1.916-3.526 2.996-6.115 2.996-4.167 0-6.953-2.8-6.953-6.777Zm9.468-1.67c-.296-1.326-1.282-2.062-2.737-2.062-1.479 0-2.589.81-3.008 2.062h5.745Zm4.339 1.645c0-4.002 2.885-6.703 6.928-6.703.592 0 1.282.05 2.047.147v3.512a13.837 13.837 0 0 0-1.603-.123c-2.268 0-3.476 1.326-3.476 3.168 0 1.841 1.208 3.142 3.476 3.142.444 0 1.011-.049 1.603-.122v3.535c-.765.098-1.455.148-2.047.148-4.043 0-6.928-2.701-6.928-6.704ZM85 13.407c0-4.002 2.983-6.753 6.509-6.753 1.282 0 2.515.369 3.427 1.105a63.42 63.42 0 0 1-.074-3.118V.933h3.896v18.98h-3.452l-.025-1.178c-.887.933-2.317 1.424-3.772 1.424-3.526 0-6.51-2.75-6.51-6.752Zm7.027 3.216c1.775 0 3.082-1.252 3.082-3.216 0-1.964-1.307-3.217-3.082-3.217-1.8 0-3.132 1.252-3.132 3.217 0 1.964 1.332 3.216 3.132 3.216Zm7.889-3.192c0-4.002 3.107-6.85 6.978-6.85 3.871 0 6.977 2.848 6.977 6.85 0 4.003-3.106 6.851-6.977 6.851-3.871 0-6.978-2.848-6.978-6.85Zm6.978 3.242c1.75 0 3.082-1.302 3.082-3.241 0-1.94-1.332-3.242-3.082-3.242-1.751 0-3.082 1.302-3.082 3.242s1.331 3.24 3.082 3.24Zm8.925-6.286h-1.554V6.9h1.554V3.56l3.895-1.252V6.9h1.578v3.487h-1.578l-.024 9.527h-3.896l.025-9.527Zm5.868 3.02c0-4.002 2.983-6.753 6.509-6.753 1.455 0 2.885.492 3.772 1.425l.025-1.179h3.452v13.014h-3.452l-.025-1.179c-.887.933-2.317 1.424-3.772 1.424-3.526 0-6.509-2.75-6.509-6.752Zm7.027 3.216c1.775 0 3.082-1.252 3.082-3.216 0-1.964-1.307-3.217-3.082-3.217-1.8 0-3.132 1.252-3.132 3.217 0 1.964 1.332 3.216 3.132 3.216ZM137.17.933h3.896v18.98h-3.896V.934Z"/><path fill="#CC5033" d="m28.834 19.95-7.146 7.117v-13.5l7.146-6.15V19.95ZM15.797 6.901v12.983h5.107V13.21l7.33-6.308H15.797Zm-8.972 6.665v13.5l7.146-7.116V7.416l-7.146 6.15ZM.935 6.901v12.983H6.04V13.21l7.33-6.308H.934Z"/></g><defs><clipPath id="ca"><path fill="#fff" d="M0 0h142v28H0z"/></clipPath></defs></svg>
+    <span class="cover-wordmark-sep" style="margin:0 10px;">&#215;</span>
+    <span class="cover-wordmark-client">Salvo SC</span>
+  </div>
+  <div>
+    <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:16px;" data-reveal data-delay="1">Part II &middot; Social Media Program</div>
+    <div class="cover-headline" data-reveal data-delay="1">The <em>Approach.</em></div>
+    <div class="cover-sub" data-reveal data-delay="2">How we think, who we&#8217;re building for, what we&#8217;re going to make, and how we&#8217;re going to capture it.</div>
+    <div class="cover-pills" data-reveal data-delay="3">
+      <span class="cover-pill">Our Approach</span>
+      <span class="cover-pill">Persona Development</span>
+      <span class="cover-pill">Six Content Categories</span>
+      <span class="cover-pill">Content Capture Plan</span>
+      <span class="cover-pill">Expected Outcomes</span>
+    </div>
+  </div>
+  <div data-reveal data-delay="3">
+    <div class="cover-bottom-label">Prepared for</div>
+    <div class="cover-bottom-title">Salvo SC</div>
+    <div class="cover-bottom-date">April 2026 &middot; Confidential</div>
+  </div>
+</div>
+
+
+<!-- SLIDE 02 — OUR APPROACH -->
+<div class="slide slide--dark">
+  <div class="slide-num" style="color:rgba(255,252,232,0.3);">02</div>
+  <div class="eyebrow" data-reveal>How We Work</div>
+  <div class="display-sm" data-reveal data-delay="1">Our Approach to Social<br><em>for Salvo.</em></div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body body-wide" data-reveal data-delay="3">Every step grounded in Salvo&#8217;s mission and the communities they want to reach. Not a template &#8212; a system built for this org.</div>
+  <div class="card-grid" data-reveal data-delay="3">
+    <div class="card" style="background:rgba(255,255,255,0.06);">
+      <div class="card-num" style="color:var(--sage-light);">01</div>
+      <div class="card-title" style="color:var(--cream);">Deep Discovery &amp; Audit</div>
+      <div class="card-body" style="color:rgba(255,252,232,0.55);">Comprehensive platform audit &#8212; performance data, audience, engagement benchmarks, competitive landscape. Paired with discovery sessions to understand Salvo&#8217;s objectives, voice, and what real success looks like beyond the metrics.</div>
+    </div>
+    <div class="card" style="background:rgba(255,255,255,0.03);">
+      <div class="card-num" style="color:var(--sage-light);">02</div>
+      <div class="card-title" style="color:var(--cream);">Social Objectives Tied to Brand Objectives</div>
+      <div class="card-body" style="color:rgba(255,252,232,0.55);">Every KPI we set maps directly to what Salvo is actually trying to accomplish &#8212; registrations, community visibility, brand recognition in underserved markets. We don&#8217;t chase vanity metrics. We chase outcomes.</div>
+    </div>
+    <div class="card" style="background:rgba(255,255,255,0.06);">
+      <div class="card-num" style="color:var(--sage-light);">03</div>
+      <div class="card-title" style="color:var(--cream);">Organic-First Growth Strategy</div>
+      <div class="card-body" style="color:rgba(255,252,232,0.55);">Paid reach without organic trust is a leaky bucket. We build the organic foundation first. Once that engine is running, paid amplifies what&#8217;s already working. This is how you build something that outlasts the ad spend.</div>
+    </div>
+    <div class="card" style="background:rgba(255,255,255,0.03);">
+      <div class="card-num" style="color:var(--sage-light);">04</div>
+      <div class="card-title" style="color:var(--cream);">Community &amp; Audience Social Listening</div>
+      <div class="card-body" style="color:rgba(255,252,232,0.55);">We monitor the communities Salvo wants to reach &#8212; the soccer parent groups, youth athlete spaces, cultural communities, local networks. Their interests, questions, and language inform every content decision.</div>
+    </div>
+    <div class="card" style="background:rgba(255,255,255,0.06);">
+      <div class="card-num" style="color:var(--sage-light);">05</div>
+      <div class="card-title" style="color:var(--cream);">Prioritize Shareability &amp; FYP Reach</div>
+      <div class="card-body" style="color:rgba(255,252,232,0.55);">Follower count is a lagging indicator. The real goal is organic reach &#8212; content that gets shared and lands on For You Pages. We engineer for that from the first frame. Hook, format, pacing, audio &#8212; all of it built to travel.</div>
+    </div>
+    <div class="card" style="background:rgba(255,255,255,0.03);">
+      <div class="card-num" style="color:var(--sage-light);">06</div>
+      <div class="card-title" style="color:var(--cream);">Hook First. Program Second.</div>
+      <div class="card-body" style="color:rgba(255,252,232,0.55);">Nobody watches content to be sold to. We lead with the story, the skill, the laugh, the moment &#8212; and bring Salvo in naturally. That sequencing is the difference between content that gets skipped and content that gets saved.</div>
+    </div>
+    <div class="card" style="background:rgba(255,255,255,0.06);">
+      <div class="card-num" style="color:var(--sage-light);">07</div>
+      <div class="card-title" style="color:var(--cream);">Playbook &amp; Content Calendar</div>
+      <div class="card-body" style="color:rgba(255,252,232,0.55);">A defined content calendar with approval and editing workflows. A living playbook that governs brand voice, visual standards, platform best practices, and UGC. Built to scale &#8212; and to hand off. Salvo owns it permanently.</div>
+    </div>
+    <div class="card" style="background:rgba(255,255,255,0.03);">
+      <div class="card-num" style="color:var(--sage-light);">08</div>
+      <div class="card-title" style="color:var(--cream);">Quality Over Quantity</div>
+      <div class="card-body" style="color:rgba(255,252,232,0.55);">You don&#8217;t have to post every day to grow. You have to post the right things. We publish fewer pieces that earn real attention rather than volume that disappears. Every post earns its place on the calendar.</div>
+    </div>
+    <div class="card" style="background:var(--sage);">
+      <div class="card-num" style="color:rgba(255,255,255,0.5);">09</div>
+      <div class="card-title" style="color:var(--cream);">Sustainable Content Capture</div>
+      <div class="card-body" style="color:rgba(255,255,255,0.75);">Professional production visits anchor the library. Between those visits, Salvo&#8217;s coaches, staff, and volunteers become a guided capture team &#8212; equipped with their own playbook and virtual training to keep the content pipeline full.</div>
+    </div>
+  </div>
+  <div class="slide-footer" style="color:rgba(255,252,232,0.3);"><span>Salvo SC &middot; Anecdotal Media &middot; The Approach</span></div>
+</div>
+
+
+<!-- SLIDE 03 — PERSONA DEVELOPMENT -->
+<div class="slide slide--sage">
+  <div class="slide-num">03</div>
+  <div class="eyebrow" data-reveal>Who We&#8217;re Talking To</div>
+  <div class="display-sm" data-reveal data-delay="1"><em>Persona</em> Development</div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body body-wide" data-reveal data-delay="3">Personas aren&#8217;t demographic labels. They&#8217;re the lens through which every content decision gets made &#8212; what we say, how we say it, which platforms we prioritize, and what stories we tell first.</div>
+
+  <div class="importance-callout" data-reveal data-delay="3" style="margin-top:36px;">
+    <div class="importance-mark">!</div>
+    <div class="importance-text">Personas are the strategic foundation of this entire program. <strong>Different personas consume content differently, trust different voices, and respond to different messages.</strong> Without defining who we&#8217;re talking to, everything we publish is a guess. The personas below are illustrative examples &#8212; a full, deeply-researched set will be developed during the discovery phase and will directly shape every pillar of the strategy.</div>
+  </div>
+
+  <div class="persona-grid" data-reveal data-delay="4">
+    <div class="persona-card">
+      <div class="p-num">Example 01</div>
+      <div class="p-name">Immigrant &amp; New American Families</div>
+      <div class="p-desc">Soccer is identity. They&#8217;re passionate about the game but assume club soccer is financially or culturally out of reach. Salvo&#8217;s accessibility story is built for them.</div>
+      <div class="p-tags">
+        <span class="p-tag">Soccer = Culture</span>
+        <span class="p-tag">Cost Aware</span>
+        <span class="p-tag">Community Trust</span>
+      </div>
+    </div>
+    <div class="persona-card">
+      <div class="p-num">Example 02</div>
+      <div class="p-name">Young Women in Soccer</div>
+      <div class="p-desc">Girls and young women who love the game but rarely see themselves centered in soccer content. Respond strongly to representation, skills content, and real storytelling.</div>
+      <div class="p-tags">
+        <span class="p-tag">Representation</span>
+        <span class="p-tag">Skill-Driven</span>
+        <span class="p-tag">Social Native</span>
+      </div>
+    </div>
+    <div class="persona-card">
+      <div class="p-num">Example 03</div>
+      <div class="p-name">Somali &amp; Hispanic Communities</div>
+      <div class="p-desc">Deep roots in soccer culture, significant untapped potential. Require culturally resonant content and community-trusted voices &#8212; not generic outreach.</div>
+      <div class="p-tags">
+        <span class="p-tag">Cultural Fit</span>
+        <span class="p-tag">Micro-Influencer</span>
+        <span class="p-tag">Language Aware</span>
+      </div>
+    </div>
+    <div class="persona-card">
+      <div class="p-num">Example 04</div>
+      <div class="p-name">Volunteers &amp; Supporters</div>
+      <div class="p-desc">Already invested in Salvo&#8217;s mission. When activated, they become advocates, amplifiers, and UGC contributors &#8212; a word-of-mouth engine already inside the building.</div>
+      <div class="p-tags">
+        <span class="p-tag">Already Believers</span>
+        <span class="p-tag">UGC Ready</span>
+        <span class="p-tag">Word of Mouth</span>
+      </div>
+    </div>
+    <div class="persona-card">
+      <div class="p-num">Example 05</div>
+      <div class="p-name">Donors &amp; Community Stakeholders</div>
+      <div class="p-desc">Support Salvo&#8217;s financial aid mission. A strong social presence with real impact storytelling makes the case for investment more powerfully than any grant proposal.</div>
+      <div class="p-tags">
+        <span class="p-tag">Mission-Driven</span>
+        <span class="p-tag">Impact Story</span>
+        <span class="p-tag">Long-Term</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="persona-note" data-reveal data-delay="5">
+    <p>These five are representative examples. The full persona set &#8212; built during discovery &#8212; will be more detailed, more specific, and will include behavioral data, platform habits, content preferences, and direct insight into what moves each audience from awareness to action.</p>
+  </div>
+  <div class="slide-footer"><span>Salvo SC &middot; Anecdotal Media &middot; The Approach</span></div>
+</div>
+
+
+<!-- SLIDE 04 — SIX CONTENT CATEGORIES -->
+<div class="slide">
+  <div class="slide-num">04</div>
+  <div class="eyebrow" data-reveal>Content Framework</div>
+  <div class="display-sm" data-reveal data-delay="1">Six Content <em>Categories.</em></div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body body-wide" data-reveal data-delay="3">Every piece of content lives in one of these six buckets. Each serves a different audience need, platform behavior, and funnel stage &#8212; from awareness through conversion.</div>
+  <div class="cat-grid" data-reveal data-delay="3">
+    <div class="cat-card">
+      <div class="cc-num">Category 01</div>
+      <div class="cc-title">Education</div>
+      <div class="cc-desc">Content that teaches. Builds authority, earns trust, and gives people a reason to follow before they&#8217;re ready to register.</div>
+      <ul class="cc-ideas">
+        <li>Coach to camera &#8212; drills for specific age groups</li>
+        <li>Soccer rules &amp; ball sizes explained by age group</li>
+        <li>General youth soccer education (goal sizes, formats)</li>
+        <li>FAQ walkthroughs &#8212; financial aid, what to expect</li>
+        <li>Soccer fact videos leading to a Salvo CTA</li>
+        <li>Coach-to-parent tips and development philosophy</li>
+      </ul>
+    </div>
+    <div class="cat-card">
+      <div class="cc-num">Category 02</div>
+      <div class="cc-title">Authenticity</div>
+      <div class="cc-desc">Content that speaks to the real soccer community &#8212; the global game, the culture, the passion. Meeting people where they already live online.</div>
+      <ul class="cc-ideas">
+        <li>Soccer history explained by the players themselves</li>
+        <li>Soccer terms explained on camera</li>
+        <li>All-time favorite goal and player interviews</li>
+        <li>Favorite player deep-dives by the kids</li>
+        <li>Soccer culture moments &#8212; boots, tactics, the game</li>
+        <li>Collaboration posts with other clubs or creators</li>
+      </ul>
+    </div>
+    <div class="cat-card">
+      <div class="cc-num">Category 03</div>
+      <div class="cc-title">Storytelling</div>
+      <div class="cc-desc">The content that moves people. Real stories from inside Salvo&#8217;s community &#8212; the ones that make a parent stop and think &#8220;that&#8217;s the club for my kid.&#8221;</div>
+      <ul class="cc-ideas">
+        <li>Storytime interviews &#8212; how long they&#8217;ve played, why they love it</li>
+        <li>Player journeys and personal milestones</li>
+        <li>Family stories &#8212; how Salvo made it possible</li>
+        <li>Comedic documentary style &#8212; post-game interview parodies</li>
+        <li>&#8220;Coach said you showed up late&#8230; mind explaining that?&#8221;</li>
+        <li>Day-in-the-life content from coaches and players</li>
+      </ul>
+    </div>
+    <div class="cat-card">
+      <div class="cc-num">Category 04</div>
+      <div class="cc-title">Highlight Reels</div>
+      <div class="cc-desc">The content players want to share because it makes them look good. When a player sends Salvo&#8217;s reel to their friends, that&#8217;s free recruiting.</div>
+      <ul class="cc-ideas">
+        <li>Game and training highlights &#8212; slow mo, music, cinematic</li>
+        <li>Dribble move tutorials by skilled players</li>
+        <li>Tactical highlights &#8212; tiki-taka, team play</li>
+        <li>Meta glasses POV dribbling footage</li>
+        <li>Nice touches set to classical music</li>
+        <li>Trying to replicate famous goals</li>
+      </ul>
+    </div>
+    <div class="cat-card">
+      <div class="cc-num">Category 05</div>
+      <div class="cc-title">Viral Trends</div>
+      <div class="cc-desc">Fast-moving, shareable content built for discovery. The formats that land on For You Pages and reach people who&#8217;ve never heard of Salvo.</div>
+      <ul class="cc-ideas">
+        <li>Corner goal challenge</li>
+        <li>1-touch challenge</li>
+        <li>Ball trap challenge</li>
+        <li>Trending audio and format adaptations</li>
+        <li>Competitions between players &#8212; filmed for social</li>
+        <li>Replicate famous goals &#8212; challenge format</li>
+      </ul>
+    </div>
+    <div class="cat-card">
+      <div class="cc-num">Category 06</div>
+      <div class="cc-title">UGC</div>
+      <div class="cc-desc">Content created by the Salvo community itself &#8212; parents, players, coaches, and volunteers. The most authentic content we can publish because it&#8217;s real, and everyone knows it.</div>
+      <ul class="cc-ideas">
+        <li>Parent sideline captures and celebrations</li>
+        <li>Player self-filmed skills and moments</li>
+        <li>Volunteer and staff perspective content</li>
+        <li>Community reactions and event coverage</li>
+        <li>Defined UGC accounts sourced during discovery</li>
+        <li>Prompted submissions via the capture playbook</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Salvo SC &middot; Anecdotal Media &middot; The Approach</span></div>
+</div>
+
+
+<!-- SLIDE 05 — CONTENT CAPTURE PLAN -->
+<div class="slide slide--sage">
+  <div class="slide-num">05</div>
+  <div class="eyebrow" data-reveal>Execution</div>
+  <div class="display-sm" data-reveal data-delay="1">Content <em>Capture</em> Plan</div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body body-wide" data-reveal data-delay="3">A great strategy is worthless without the footage to bring it to life. Here&#8217;s how we build a sustainable content supply chain that doesn&#8217;t burn anyone out.</div>
+  <div class="capture-grid" data-reveal data-delay="3">
+    <div class="cap-card">
+      <span class="cap-icon">&#127909;</span>
+      <div class="cap-title">On-Site Production</div>
+      <div class="cap-body">Dedicated production visits &#8212; game days, training sessions, camps, community events. All travel and accommodations included. The raw material that fuels months of content across every platform. This is what makes the videos actually work &#8212; you can&#8217;t manufacture this footage remotely.</div>
+    </div>
+    <div class="cap-card">
+      <span class="cap-icon">&#128241;</span>
+      <div class="cap-title">Staff &amp; Volunteer Capture Army</div>
+      <div class="cap-body">Coaches, staff, players, and volunteers are on the ground every day. Equipped with a dedicated capture playbook, shot lists, and best-practices training, they become a distributed content team &#8212; supplying the raw, in-the-moment footage that no crew can plan for.</div>
+    </div>
+    <div class="cap-card">
+      <span class="cap-icon">&#128197;</span>
+      <div class="cap-title">Defined Content Calendar</div>
+      <div class="cap-body">Every post planned by platform, format, and objective. Nothing goes live without a purpose. Built around Salvo&#8217;s season, registration windows, events, and key cultural moments in the soccer calendar. No guesswork, no scrambling.</div>
+    </div>
+    <div class="cap-card">
+      <span class="cap-icon">&#9989;</span>
+      <div class="cap-title">Approval &amp; Editing Process</div>
+      <div class="cap-body">A clear workflow from raw capture to published post. Salvo has final eyes on everything before it goes live. Consistent quality, consistent brand, no surprises. Every edit, graphic, and caption reviewed against the playbook.</div>
+    </div>
+    <div class="cap-card">
+      <span class="cap-icon">&#127891;</span>
+      <div class="cap-title">Virtual Training for Best Practices</div>
+      <div class="cap-body">Best practices training for Salvo&#8217;s internal capture team. How to film, what to look for, how to submit. Simple enough that a volunteer can do it well &#8212; good enough that we can actually use the footage to build professional content.</div>
+    </div>
+    <div class="cap-card">
+      <span class="cap-icon">&#129523;</span>
+      <div class="cap-title">Defined UGC Pipeline</div>
+      <div class="cap-body">Identified community accounts, prompts, permissions, and a submission process established during discovery. We define what UGC looks like for Salvo, activate the right contributors, and build a system that generates authentic content from within the community itself.</div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Salvo SC &middot; Anecdotal Media &middot; The Approach</span></div>
+</div>
+
+
+<!-- SLIDE 06 — EXPECTED OUTCOMES -->
+<div class="slide slide--dark">
+  <div class="slide-num" style="color:rgba(255,252,232,0.3);">06</div>
+  <div class="eyebrow" data-reveal>What Success Looks Like</div>
+  <div class="display-sm" data-reveal data-delay="1">Expected <em>Outcomes.</em></div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body body-wide" data-reveal data-delay="3">The compounding results of doing this right and giving it the runway it needs. Not promises tied to a sprint &#8212; momentum built over time.</div>
+  <div class="outcomes-grid" data-reveal data-delay="3">
+    <div class="outcome-item">
+      <div class="oi-arrow">&uarr;</div>
+      <div>
+        <div class="oi-head">Increased Awareness</div>
+        <div class="oi-body">Families who&#8217;ve never heard of Salvo will &#8212; across cultural backgrounds, income levels, and soccer journeys. The club becomes a recognized name in communities it has never meaningfully reached before.</div>
+      </div>
+    </div>
+    <div class="outcome-item">
+      <div class="oi-arrow">&uarr;</div>
+      <div>
+        <div class="oi-head">Community Buzz</div>
+        <div class="oi-body">Salvo becomes a talking point &#8212; in parent groups, at fields, in online soccer communities. The kind of organic conversation that no ad budget can manufacture on its own.</div>
+      </div>
+    </div>
+    <div class="outcome-item">
+      <div class="oi-arrow">&uarr;</div>
+      <div>
+        <div class="oi-head">Earned Media Mentions</div>
+        <div class="oi-body">Content interesting enough to be shared or referenced by other accounts, creators, and local media &#8212; without paid placement.</div>
+      </div>
+    </div>
+    <div class="outcome-item">
+      <div class="oi-arrow">&uarr;</div>
+      <div>
+        <div class="oi-head">Vocal Advocates &#8212; Word of Mouth</div>
+        <div class="oi-body">Families who found Salvo through social become the club&#8217;s most powerful recruiting tool. A parent sharing a video with their network is worth more than any targeted ad.</div>
+      </div>
+    </div>
+    <div class="outcome-item">
+      <div class="oi-arrow">&uarr;</div>
+      <div>
+        <div class="oi-head">Increased Interest &amp; Inquiries</div>
+        <div class="oi-body">More families in the funnel. More DMs, form fills, and registration questions. The pipeline grows as awareness and trust compound over time.</div>
+      </div>
+    </div>
+    <div class="outcome-item">
+      <div class="oi-arrow">&uarr;</div>
+      <div>
+        <div class="oi-head">Increased Involvement &amp; Sign-Ups</div>
+        <div class="oi-body">The bottom line. Every part of this strategy exists to move families from discovery to registration. Organic builds the trust. Paid closes the gap.</div>
+      </div>
+    </div>
+    <div class="outcome-item expand">
+      <div class="oi-arrow">&rarr;</div>
+      <div>
+        <div class="oi-head">Opportunity to Expand</div>
+        <div class="oi-body">Because awareness grows outside of targeted areas, Salvo&#8217;s reach begins to extend beyond the southeast metro &#8212; opening doors to new partnerships, new markets, stronger donor relationships, and a brand presence that reflects the true quality of this organization.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer" style="color:rgba(255,252,232,0.3);"><span>Salvo SC &middot; Anecdotal Media &middot; The Approach</span></div>
+</div>
+
+<script>
+(function(){
+  try {
+    document.documentElement.classList.add('js-loaded');
+    var els = document.querySelectorAll('[data-reveal]');
+    if (!els.length) return;
+    var coverEls = document.querySelectorAll('.cover-hero [data-reveal]');
+    setTimeout(function(){ coverEls.forEach(function(el){ el.classList.add('is-visible'); }); }, 100);
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); }
+      });
+    },{ threshold:0.15 });
+    els.forEach(function(el){ if(!el.closest('.cover-hero')) io.observe(el); });
+  } catch(e){}
+})();
+</script>
+</body>
+</html>
