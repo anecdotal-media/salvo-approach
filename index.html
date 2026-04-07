@@ -105,6 +105,31 @@ body { font-family:var(--sans); font-weight:300; background:var(--warm-white); c
 .card-body { font-size:13px; line-height:1.65; font-weight:300; opacity:0.7; }
 .card--accent-top::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--sage); }
 
+/* ACCORDION */
+.accordion-list { margin-top:40px; display:flex; flex-direction:column; gap:0; max-width:720px; }
+.acc-item { border-bottom:1px solid rgba(255,255,255,0.08); }
+.acc-item:first-child { border-top:1px solid rgba(255,255,255,0.08); }
+.acc-header {
+  display:flex; align-items:center; gap:16px; padding:18px 0; cursor:pointer;
+  list-style:none; user-select:none;
+}
+.acc-header::-webkit-details-marker { display:none; }
+.acc-header::marker { display:none; content:''; }
+.acc-num { font-family:var(--serif); font-size:14px; color:var(--sage-light); opacity:0.5; min-width:24px; }
+.acc-title { font-family:var(--serif); font-size:17px; color:var(--cream); flex:1; line-height:1.25; }
+.acc-icon {
+  font-family:var(--sans); font-size:18px; color:var(--sage-light); opacity:0.5;
+  transition:transform 0.3s ease;
+  flex-shrink:0; width:20px; text-align:center;
+}
+.acc-item[open] .acc-icon { transform:rotate(45deg); }
+.acc-body {
+  font-size:14px; line-height:1.7; font-weight:300; color:rgba(255,252,232,0.55);
+  padding:0 0 22px 40px; max-width:600px;
+}
+.acc-header:hover .acc-title { color:var(--sage-light); }
+.acc-header:hover .acc-icon { opacity:0.8; }
+
 /* DELIVERABLE LIST */
 .deliverable-list { list-style:none; display:flex; flex-direction:column; gap:0; }
 .deliverable-list li { padding:13px 0; border-bottom:1px solid var(--rule); display:flex; flex-direction:column; gap:3px; }
@@ -311,52 +336,43 @@ body { font-family:var(--sans); font-weight:300; background:var(--warm-white); c
   <div class="display-sm" data-reveal data-delay="1">Our Approach to Social<br><em>for Salvo.</em></div>
   <div class="rule" data-reveal data-delay="2"></div>
   <div class="body body-wide" data-reveal data-delay="3">Every step grounded in Salvo&#8217;s mission and the communities they want to reach. Not a template &#8212; a system built for this org.</div>
-  <div class="card-grid" data-reveal data-delay="3">
-    <div class="card" style="background:rgba(255,255,255,0.06);">
-      <div class="card-num" style="color:var(--sage-light);">01</div>
-      <div class="card-title" style="color:var(--cream);">Deep Discovery &amp; Audit</div>
-      <div class="card-body" style="color:rgba(255,252,232,0.55);">Comprehensive platform audit &#8212; performance data, audience, engagement benchmarks, competitive landscape. Paired with discovery sessions to understand Salvo&#8217;s objectives, voice, and what real success looks like beyond the metrics.</div>
-    </div>
-    <div class="card" style="background:rgba(255,255,255,0.03);">
-      <div class="card-num" style="color:var(--sage-light);">02</div>
-      <div class="card-title" style="color:var(--cream);">Social Objectives Tied to Brand Objectives</div>
-      <div class="card-body" style="color:rgba(255,252,232,0.55);">Every KPI we set maps directly to what Salvo is actually trying to accomplish &#8212; registrations, community visibility, brand recognition in underserved markets. We don&#8217;t chase vanity metrics. We chase outcomes.</div>
-    </div>
-    <div class="card" style="background:rgba(255,255,255,0.06);">
-      <div class="card-num" style="color:var(--sage-light);">03</div>
-      <div class="card-title" style="color:var(--cream);">Organic-First Growth Strategy</div>
-      <div class="card-body" style="color:rgba(255,252,232,0.55);">Paid reach without organic trust is a leaky bucket. We build the organic foundation first. Once that engine is running, paid amplifies what&#8217;s already working. This is how you build something that outlasts the ad spend.</div>
-    </div>
-    <div class="card" style="background:rgba(255,255,255,0.03);">
-      <div class="card-num" style="color:var(--sage-light);">04</div>
-      <div class="card-title" style="color:var(--cream);">Community &amp; Audience Social Listening</div>
-      <div class="card-body" style="color:rgba(255,252,232,0.55);">We monitor the communities Salvo wants to reach &#8212; the soccer parent groups, youth athlete spaces, cultural communities, local networks. Their interests, questions, and language inform every content decision.</div>
-    </div>
-    <div class="card" style="background:rgba(255,255,255,0.06);">
-      <div class="card-num" style="color:var(--sage-light);">05</div>
-      <div class="card-title" style="color:var(--cream);">Prioritize Shareability &amp; FYP Reach</div>
-      <div class="card-body" style="color:rgba(255,252,232,0.55);">Follower count is a lagging indicator. The real goal is organic reach &#8212; content that gets shared and lands on For You Pages. We engineer for that from the first frame. Hook, format, pacing, audio &#8212; all of it built to travel.</div>
-    </div>
-    <div class="card" style="background:rgba(255,255,255,0.03);">
-      <div class="card-num" style="color:var(--sage-light);">06</div>
-      <div class="card-title" style="color:var(--cream);">Hook First. Program Second.</div>
-      <div class="card-body" style="color:rgba(255,252,232,0.55);">Nobody watches content to be sold to. We lead with the story, the skill, the laugh, the moment &#8212; and bring Salvo in naturally. That sequencing is the difference between content that gets skipped and content that gets saved.</div>
-    </div>
-    <div class="card" style="background:rgba(255,255,255,0.06);">
-      <div class="card-num" style="color:var(--sage-light);">07</div>
-      <div class="card-title" style="color:var(--cream);">Playbook &amp; Content Calendar</div>
-      <div class="card-body" style="color:rgba(255,252,232,0.55);">A defined content calendar with approval and editing workflows. A living playbook that governs brand voice, visual standards, platform best practices, and UGC. Built to scale &#8212; and to hand off. Salvo owns it permanently.</div>
-    </div>
-    <div class="card" style="background:rgba(255,255,255,0.03);">
-      <div class="card-num" style="color:var(--sage-light);">08</div>
-      <div class="card-title" style="color:var(--cream);">Quality Over Quantity</div>
-      <div class="card-body" style="color:rgba(255,252,232,0.55);">You don&#8217;t have to post every day to grow. You have to post the right things. We publish fewer pieces that earn real attention rather than volume that disappears. Every post earns its place on the calendar.</div>
-    </div>
-    <div class="card" style="background:var(--sage);">
-      <div class="card-num" style="color:rgba(255,255,255,0.5);">09</div>
-      <div class="card-title" style="color:var(--cream);">Sustainable Content Capture</div>
-      <div class="card-body" style="color:rgba(255,255,255,0.75);">Professional production visits anchor the library. Between those visits, Salvo&#8217;s coaches, staff, and volunteers become a guided capture team &#8212; equipped with their own playbook and virtual training to keep the content pipeline full.</div>
-    </div>
+  <div class="accordion-list" data-reveal data-delay="3">
+    <details class="acc-item">
+      <summary class="acc-header"><span class="acc-num">01</span><span class="acc-title">Deep Discovery &amp; Audit</span><span class="acc-icon">+</span></summary>
+      <div class="acc-body">Comprehensive platform audit &#8212; performance data, audience, engagement benchmarks, competitive landscape. Paired with discovery sessions to understand Salvo&#8217;s objectives, voice, and what real success looks like beyond the metrics.</div>
+    </details>
+    <details class="acc-item">
+      <summary class="acc-header"><span class="acc-num">02</span><span class="acc-title">Social Objectives Tied to Brand Objectives</span><span class="acc-icon">+</span></summary>
+      <div class="acc-body">Every KPI we set maps directly to what Salvo is actually trying to accomplish &#8212; registrations, community visibility, brand recognition in underserved markets. We don&#8217;t chase vanity metrics. We chase outcomes.</div>
+    </details>
+    <details class="acc-item">
+      <summary class="acc-header"><span class="acc-num">03</span><span class="acc-title">Organic-First Growth Strategy</span><span class="acc-icon">+</span></summary>
+      <div class="acc-body">Paid reach without organic trust is a leaky bucket. We build the organic foundation first. Once that engine is running, paid amplifies what&#8217;s already working. This is how you build something that outlasts the ad spend.</div>
+    </details>
+    <details class="acc-item">
+      <summary class="acc-header"><span class="acc-num">04</span><span class="acc-title">Community &amp; Audience Social Listening</span><span class="acc-icon">+</span></summary>
+      <div class="acc-body">We monitor the communities Salvo wants to reach &#8212; the soccer parent groups, youth athlete spaces, cultural communities, local networks. Their interests, questions, and language inform every content decision.</div>
+    </details>
+    <details class="acc-item">
+      <summary class="acc-header"><span class="acc-num">05</span><span class="acc-title">Prioritize Shareability &amp; FYP Reach</span><span class="acc-icon">+</span></summary>
+      <div class="acc-body">Follower count is a lagging indicator. The real goal is organic reach &#8212; content that gets shared and lands on For You Pages. We engineer for that from the first frame. Hook, format, pacing, audio &#8212; all of it built to travel.</div>
+    </details>
+    <details class="acc-item">
+      <summary class="acc-header"><span class="acc-num">06</span><span class="acc-title">Hook First. Program Second.</span><span class="acc-icon">+</span></summary>
+      <div class="acc-body">Nobody watches content to be sold to. We lead with the story, the skill, the laugh, the moment &#8212; and bring Salvo in naturally. That sequencing is the difference between content that gets skipped and content that gets saved.</div>
+    </details>
+    <details class="acc-item">
+      <summary class="acc-header"><span class="acc-num">07</span><span class="acc-title">Playbook &amp; Content Calendar</span><span class="acc-icon">+</span></summary>
+      <div class="acc-body">A defined content calendar with approval and editing workflows. A living playbook that governs brand voice, visual standards, platform best practices, and UGC. Built to scale &#8212; and to hand off. Salvo owns it permanently.</div>
+    </details>
+    <details class="acc-item">
+      <summary class="acc-header"><span class="acc-num">08</span><span class="acc-title">Quality Over Quantity</span><span class="acc-icon">+</span></summary>
+      <div class="acc-body">You don&#8217;t have to post every day to grow. You have to post the right things. We publish fewer pieces that earn real attention rather than volume that disappears. Every post earns its place on the calendar.</div>
+    </details>
+    <details class="acc-item">
+      <summary class="acc-header"><span class="acc-num">09</span><span class="acc-title">Sustainable Content Capture</span><span class="acc-icon">+</span></summary>
+      <div class="acc-body">Professional production visits anchor the library. Between those visits, Salvo&#8217;s coaches, staff, and volunteers become a guided capture team &#8212; equipped with their own playbook and virtual training to keep the content pipeline full.</div>
+    </details>
   </div>
   <div class="slide-footer" style="color:rgba(255,252,232,0.3);"><span>Salvo SC &middot; Anecdotal Media &middot; The Approach</span></div>
 </div>
